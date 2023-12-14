@@ -15,3 +15,48 @@ model User {
   name     String  @unique
   password String
 }
+
+model Worker {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now()) @map("created_at")
+  updateAt   DateTime @updatedAt @map("updated_at")
+
+  otdel      String
+  fio        String
+  phone      String      @unique
+  karta      String      @unique 
+  photo      String   @default("default-avatar.png")
+
+  dostyp     Dostyp[]
+  otmetka    Otmetka[]
+}
+
+model Tyrniket {
+  id         Int      @id @default(autoincrement())
+
+  info       String   @unique
+
+  dostyp     Dostyp[]
+  otmetka    Otmetka[]
+}
+
+model Dostyp {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now()) @map("created_at")
+  
+  worker     Worker   @relation(fields: [workerId], references: [id])
+  workerId   Int
+  tyrniket   Tyrniket @relation(fields: [tyrniketId], references: [id])
+  tyrniketId Int
+}
+
+model Otmetka {
+  id         Int      @id @default(autoincrement())
+  createdAt  DateTime @default(now()) @map("created_at")
+  updateAt   DateTime @updatedAt @map("updated_at")
+
+  worker     Worker   @relation(fields: [workerId], references: [id])
+  workerId   Int
+  tyrniket   Tyrniket @relation(fields: [tyrniketId], references: [id])
+  tyrniketId Int
+}
