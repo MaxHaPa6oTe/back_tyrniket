@@ -1,6 +1,7 @@
 import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Header, StreamableFile } from '@nestjs/common';
 import { OtmetkaService } from './otmetka.service';
 import { dostypDto } from 'src/dostyp/dostyp.dto';
+import { OtmetkaDto } from './otmetka.dto';
 
 
 @Controller('otmetka')
@@ -15,7 +16,7 @@ export class OtmetkaController {
 
   @Post('all')
   @UsePipes(new ValidationPipe())
-  async all(@Body() dto: dostypDto) {
+  async all(@Body() dto: OtmetkaDto) {
     return this.otmetkaService.all(dto)
   }
 

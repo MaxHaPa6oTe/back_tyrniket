@@ -3,6 +3,7 @@ import { WorkerService } from './worker.service';
 import { workerDto } from './worker.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Get, Put } from '@nestjs/common/decorators/http';
+import { PoiskDto } from './posik.dto';
 
 
 
@@ -34,7 +35,12 @@ export class WorkerController {
   ) {
     return this.workerService.update(id ,body, photo)
   }
-
+  
+  @Post('all')
+  @HttpCode(200)
+  async getAllWorkers(@Body() body:PoiskDto) {
+    return this.workerService.poiskAll(body)
+  }
   @Get(':id')
   @HttpCode(200)
   async obzorRaba(@Param('id') id:number) {

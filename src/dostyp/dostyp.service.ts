@@ -18,7 +18,7 @@ export class DostypService {
         const dostyp = await this.prisma.dostyp.create({
             data: {
                 tyrniketId: dto.tyrniket,
-                workerId: dto.worker
+                workerId: dto.worker,
             }
         })
         return dostyp
@@ -55,7 +55,9 @@ export class DostypService {
         if (provekra) {
             return true
         } else {
-            return false
+            return {
+                message: 'ошибка'
+            }
         }
     }
 }

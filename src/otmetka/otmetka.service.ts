@@ -2,6 +2,7 @@ import { Injectable, BadRequestException, StreamableFile } from '@nestjs/common'
 import { dostypDto } from 'src/dostyp/dostyp.dto';
 import { PrismaService } from 'src/prisma.service';
 import { utils, write } from 'xlsx';
+import { OtmetkaDto } from './otmetka.dto';
 
 @Injectable()
 export class OtmetkaService {
@@ -9,15 +10,21 @@ export class OtmetkaService {
 
     async add(dto:dostypDto) {
         try {
+        let d = new Date()
+        d.setHours(d.getHours() + 3)
+        d.toISOString()
         const worker = await this.prisma.worker.findUnique({
             where: {
                 karta: String(dto.worker)
             }
         })
-        await this.prisma.otmetka.create({
-            data: {
+        if (!worker) {
+            throw new BadRequestException('Не могу найти сотрудника')
+        }
+        await this.prisma.otmetka.create({data: {
                 tyrniketId: dto.tyrniket,
-                workerId: worker.id
+                workerId: worker.id,
+                createdAt: d
             }
         })
         return {
@@ -28,11 +35,13 @@ export class OtmetkaService {
     }
     }
 
-    async all(dto:dostypDto) {
+    async all(dto:OtmetkaDto) {
         const otmetki = await this.prisma.otmetka.findMany({
             where: {
-                tyrniketId: dto.tyrniket,
-                workerId: dto.worker
+                createdAt: {
+                    gte: new Date(dto.DataS),
+                    lte: new Date(dto.DataP),
+                },
             },
             include: {
                 tyrniket: {select: {
@@ -64,9 +73,9 @@ export class OtmetkaService {
         let arr = []
         otmetki.map(info=>{
             let arr1 = []
-            let date = info.createdAt.toString()
+            // let date = info.dataCreate
             arr1.push(info.tyrniket.info)
-            arr1.push(date.substring(4, date.length - 37))
+            // arr1.push(date)
             arr1.push(info.worker.fio)
             arr.push(arr1)
         })

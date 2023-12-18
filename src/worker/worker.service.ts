@@ -2,6 +2,7 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import { workerDto } from './worker.dto';
 import { FileService } from './file/file.service';
+import { PoiskDto } from './posik.dto';
 
 @Injectable()
 export class WorkerService {
@@ -9,6 +10,9 @@ export class WorkerService {
         private fileService: FileService) {}
 
     async create(body: workerDto, photo: any) {
+        let d = new Date()
+        d.setHours(d.getHours() + 3)
+        d.toISOString()
         const uniqPhone = await this.prisma.worker.findUnique({where: {phone: body.phone}})
         if (uniqPhone) {
             throw new BadRequestException('Этот номер уже существует')
@@ -24,7 +28,8 @@ export class WorkerService {
                 otdel: body.otdel,
                 phone: body.phone,
                 karta: body.karta,
-                photo: fileName
+                photo: fileName,
+                createdAt: d
             }
         })
         return worker        
@@ -69,7 +74,8 @@ export class WorkerService {
                 otdel,
                 phone: phone,
                 karta: karta,
-                photo: fileName
+                photo: fileName,
+                createdAt: workerPoisk.createdAt
             }
         })
     return {
@@ -83,5 +89,18 @@ export class WorkerService {
             throw new BadRequestException('Не могу найти работника под этим id')
         }
         return worker
+    }
+
+    async poiskAll (body:PoiskDto) {
+        const workers = await this.prisma.worker.findMany({
+          where: {
+            fio: {
+                contains: body.fio,
+                mode:'insensitive'
+            }
+          },
+          take: body.skolkoNado
+        })
+        return workers
     }
 }

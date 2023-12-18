@@ -9,6 +9,7 @@ import { DostypModule } from './dostyp/dostyp.module';
 import { WorkerModule } from './worker/worker.module';
 import { TyrniketModule } from './tyrniket/tyrniket.module';
 import { OtmetkaModule } from './otmetka/otmetka.module';
+import { ServeStaticModule } from '@nestjs/serve-static/dist/serve-static.module';
 
 @Module({
   imports: [
@@ -21,6 +22,9 @@ import { OtmetkaModule } from './otmetka/otmetka.module';
     OtmetkaModule,
     TyrniketModule,
     WorkerModule,
+    ServeStaticModule.forRoot({
+      rootPath: './upload/',
+  }),
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
