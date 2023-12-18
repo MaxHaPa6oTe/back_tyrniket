@@ -8,7 +8,7 @@ export class DostypService {
 
     async datDostyp(dto:dostypDto) {
         const provekra = await this.prisma.dostyp.findFirst({
-            where: {tyrniketId: dto.tyrniket, workerId: dto.worker}
+            where: {zdanieId: dto.zdanie, workerId: dto.worker}
         })
         if (provekra) {
             return {
@@ -17,7 +17,7 @@ export class DostypService {
         }
         const dostyp = await this.prisma.dostyp.create({
             data: {
-                tyrniketId: dto.tyrniket,
+                zdanieId: dto.zdanie,
                 workerId: dto.worker,
             }
         })
@@ -26,11 +26,11 @@ export class DostypService {
 
     async ybratDostyp(dto:dostypDto) {
         const provekra = await this.prisma.dostyp.findFirst({
-            where: {tyrniketId: dto.tyrniket, workerId: dto.worker}
+            where: {zdanieId: dto.zdanie, workerId: dto.worker}
         })
         const dostyp = await this.prisma.dostyp.deleteMany({
             where: {
-                tyrniketId: dto.tyrniket,
+                zdanieId: dto.zdanie,
                 workerId: dto.worker
             }
         })
@@ -50,7 +50,7 @@ export class DostypService {
             return false
         }
         const provekra = await this.prisma.dostyp.findFirst({
-            where: {tyrniketId: dto.tyrniket, workerId: +worker.id}
+            where: {zdanieId: dto.zdanie, workerId: +worker.id}
         })
         if (provekra) {
             return true

@@ -1,6 +1,7 @@
 import { Controller, Body, HttpCode, Post, Get } from '@nestjs/common';
 import { TyrniketService } from './tyrniket.service';
 import { tyrniketDto } from './tyrniket.dto';
+import { zdanieDto } from './zdanie.dto';
 
 @Controller('tyrniket')
 export class TyrniketController {
@@ -13,7 +14,15 @@ export class TyrniketController {
   }
 
   @Get()
+  @HttpCode(200)
   async all() {
     return this.tyrniketService.all()
   }
+
+  @Post('zdanie')
+  @HttpCode(201)
+  async addZdanie(@Body() dto:zdanieDto) {
+    return this.tyrniketService.addZdanie(dto)
+  }
+
 }

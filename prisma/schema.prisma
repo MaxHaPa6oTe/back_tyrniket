@@ -32,12 +32,22 @@ model Worker {
   otmetka    Otmetka[]
 }
 
+model Zdanie {
+  id         Int      @id @default(autoincrement())
+
+  info       String  @unique
+
+  tyrnikets  Tyrniket[]
+  dostyp     Dostyp[]
+}
+
 model Tyrniket {
   id         Int      @id @default(autoincrement())
 
   info       String   @unique
 
-  dostyp     Dostyp[]
+  Zdanie     Zdanie   @relation(fields: [zdanie], references: [id])
+  zdanie     Int
   otmetka    Otmetka[]
 }
 
@@ -46,14 +56,15 @@ model Dostyp {
   
   worker     Worker   @relation(fields: [workerId], references: [id])
   workerId   Int
-  tyrniket   Tyrniket @relation(fields: [tyrniketId], references: [id])
-  tyrniketId Int
+  zdanie     Zdanie   @relation(fields: [zdanieId], references: [id])
+  zdanieId   Int
 }
 
 model Otmetka {
   id         Int      @id @default(autoincrement())
   
   createdAt  DateTime
+
   worker     Worker   @relation(fields: [workerId], references: [id])
   workerId   Int
   tyrniket   Tyrniket @relation(fields: [tyrniketId], references: [id])

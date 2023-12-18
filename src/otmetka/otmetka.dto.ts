@@ -1,9 +1,9 @@
-import { IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 export class OtmetkaDto {
-    @IsString()
-    DataS: string
+    @IsNumber()
+    tyrniket: number
 
-    @IsString()
-    DataP?: string
+    @IsNumber()
+    worker: number
 }
