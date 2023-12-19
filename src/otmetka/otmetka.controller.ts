@@ -1,4 +1,4 @@
-import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Header, StreamableFile } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Header, StreamableFile, HttpCode } from '@nestjs/common';
 import { OtmetkaService } from './otmetka.service';
 import { dostypDto } from 'src/dostyp/dostyp.dto';
 import { OtmetkaDto } from './otmetka.dto';
@@ -21,9 +21,10 @@ export class OtmetkaController {
     return this.otmetkaService.all(dto)
   }
 
-//   @Get('download')
-//   @Header('Content-Disposition', 'attachment; filename="SheetJSNest.xlsx"')
-//   async downloadXlsxFile(): Promise<StreamableFile> {
-//     return this.otmetkaService.download()
-// }
+  @Post('download')
+  @HttpCode(200)
+  @Header('Content-Disposition', 'attachment; filename="SheetJSNest.xlsx"')
+  async downloadXlsxFile(@Body() dto:poiskOtmetkiDto): Promise<StreamableFile> {
+    return this.otmetkaService.download(dto)
+}
 }

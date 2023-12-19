@@ -1,8 +1,9 @@
-import { IsNumber, IsString } from "class-validator";
+import { IsNumber, IsOptional, IsString } from "class-validator";
 
 export class PoiskDto {
     @IsNumber()
-    skolkoNado: number
+    @IsOptional()
+    skolkoNado?: number
 
     @IsString()
     fio: string

@@ -23,7 +23,7 @@ export class TyrniketService {
     }
 
     async all() {
-        return await this.prisma.tyrniket.findMany()
+        return await this.prisma.zdanie.findMany()
     }
 
     async addZdanie(dto:zdanieDto) {

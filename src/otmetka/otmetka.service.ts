@@ -58,34 +58,19 @@ export class OtmetkaService {
         return otmetki 
     }
 
-    async download(dto:OtmetkaDto) {
-        // const otmetki = await this.prisma.otmetka.findMany({
-        //     where: {
-        //         tyrniketId: dto.tyrniket,
-        //         workerId: dto.worker
-        //     },
-        //     include: {
-        //         tyrniket: {select: {
-        //             info: true
-        //         }},
-        //         worker: {select: {
-        //             fio: true
-        //         }}
-        //     },
-        // })
-        // let arr = []
-        // otmetki.map(info=>{
-        //     let arr1 = []
-        //     // let date = info.dataCreate
-        //     arr1.push(info.tyrniket.info)
-        //     // arr1.push(date)
-        //     arr1.push(info.worker.fio)
-        //     arr.push(arr1)
-        // })
-        // const ws = utils.aoa_to_sheet(arr);
-        // const wb = utils.book_new(); utils.book_append_sheet(wb, ws, "Data");
-        // const buf = write(wb, {type: "buffer", bookType: "xlsx"});
-        // return new StreamableFile(buf);
-        // return
+    async download(dto:poiskOtmetkiDto) {
+        const otmetki = await this.all(dto)
+        let arr = []
+        otmetki.map(infa=>{
+            let arr1 = []
+            arr1.push(infa.tyrniket.info)
+            arr1.push(infa.createdAt)
+            arr1.push(infa.worker.fio)
+            arr.push(arr1)
+        })
+        const ws = utils.aoa_to_sheet(arr);
+        const wb = utils.book_new(); utils.book_append_sheet(wb, ws, "Data");
+        const buf = write(wb, {type: "buffer", bookType: "xlsx"});
+        return new StreamableFile(buf);
     }
 }

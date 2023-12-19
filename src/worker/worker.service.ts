@@ -99,8 +99,16 @@ export class WorkerService {
                 mode:'insensitive'
             }
           },
-          take: body.skolkoNado
+          take: body.skolkoNado || 5
         })
-        return workers
+        const count = await this.prisma.worker.count({
+            where: {
+                fio: {
+                    contains: body.fio,
+                    mode:'insensitive'
+                }
+            }
+        })
+        return {workers,count}
     }
 }
