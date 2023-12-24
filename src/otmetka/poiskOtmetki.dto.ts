@@ -10,6 +10,6 @@ export class poiskOtmetkiDto {
     @IsOptional()
     worker?:number
 
-    @IsNumber()
-    zdanie:number
+    @IsString()
+    zdanie:string
 }

@@ -43,7 +43,7 @@ export class OtmetkaService {
                     lte: new Date(dto.DataP),
                 },
                 tyrniket: {
-                    zdanie: dto.zdanie
+                    zdanie: +dto.zdanie
                 },
             },
             include: {
