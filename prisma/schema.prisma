@@ -44,7 +44,7 @@ model Zdanie {
 model Tyrniket {
   id         Int      @id @default(autoincrement())
 
-  info       String   @unique
+  info       String   
 
   Zdanie     Zdanie   @relation(fields: [zdanie], references: [id])
   zdanie     Int

@@ -8,7 +8,7 @@ export class poiskOtmetkiDto {
     DataP: string
 
     @IsOptional()
-    worker?:number
+    worker?:string
 
     @IsString()
     zdanie:string

@@ -25,4 +25,9 @@ export class TyrniketController {
     return this.tyrniketService.addZdanie(dto)
   }
 
+  @Get('zdanie')
+  @HttpCode(200)
+  async Zdanie() {
+    return this.tyrniketService.Zdanie()
+  }
 }

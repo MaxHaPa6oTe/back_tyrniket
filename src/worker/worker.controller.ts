@@ -17,7 +17,7 @@ export class WorkerController {
   @UseInterceptors(FileInterceptor('photo'))
   async createWorker(
     @Body() body: workerDto,
-    @UploadedFile() photo:any
+    @UploadedFile() photo:File
   ) {
     return this.workerService.create(body, photo)
   }

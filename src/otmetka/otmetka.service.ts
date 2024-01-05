@@ -37,7 +37,7 @@ export class OtmetkaService {
     async all(dto:poiskOtmetkiDto) {
         const otmetki = await this.prisma.otmetka.findMany({
             where: {
-                ...(dto.worker ? {workerId:dto.worker} : {}),
+                ...(dto.worker ? {workerId:+dto.worker} : {}),
                 createdAt: {
                     gte: new Date(dto.DataS),
                     lte: new Date(dto.DataP),
@@ -48,6 +48,7 @@ export class OtmetkaService {
             },
             include: {
                 tyrniket: {select: {
+                    Zdanie: {select:{info:true}},
                     info: true
                 }},
                 worker: {select: {
