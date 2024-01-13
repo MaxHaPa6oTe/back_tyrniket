@@ -14,7 +14,7 @@ export class UserService {
       },
     });
 
-    if (user) throw new ConflictException('email duplicated');
+    if (user) throw new ConflictException('Этот ник уже занят');
 
     const newUser = await this.prisma.user.create({
       data: {
@@ -27,7 +27,7 @@ export class UserService {
     return result;
   }
 
-  async findByEmail(name: string) {
+  async findByName(name: string) {
     return await this.prisma.user.findUnique({
       where: {
         name: name,

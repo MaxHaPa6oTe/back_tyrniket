@@ -4,6 +4,7 @@ import { WorkerController } from './worker.controller';
 import { PrismaService } from 'src/prisma.service';
 import { MulterModule } from '@nestjs/platform-express'
 import { FileModule } from './file/file.module';
+import { JwtService } from '@nestjs/jwt';
 
 @Module({
   imports: [ 
@@ -15,6 +16,6 @@ import { FileModule } from './file/file.module';
   FileModule
 ],
   controllers: [WorkerController],
-  providers: [WorkerService, PrismaService],
+  providers: [WorkerService, PrismaService, JwtService],
 })
 export class WorkerModule {}

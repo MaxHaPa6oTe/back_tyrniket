@@ -1,11 +1,13 @@
-import { Controller, Post, Body, HttpCode, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Body, HttpCode, UsePipes, ValidationPipe, UseGuards } from '@nestjs/common';
 import { DostypService } from './dostyp.service';
 import { dostypDto } from './dostyp.dto';
+import { AdminJwtGuard } from 'src/auth/guards/admin.guard';
 
 @Controller('dostyp')
 export class DostypController {
   constructor(private readonly dostypService: DostypService) {}
 
+  @UseGuards(AdminJwtGuard)
   @Post('dat')
   @UsePipes(new ValidationPipe())
   @HttpCode(201)
@@ -13,6 +15,7 @@ export class DostypController {
     return this.dostypService.datDostyp(dto)
   }
 
+  @UseGuards(AdminJwtGuard)
   @Post('ybr')
   @UsePipes(new ValidationPipe())
   async ybrDostyp(@Body() dto: dostypDto) {

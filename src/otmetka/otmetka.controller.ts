@@ -1,9 +1,10 @@
-import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Header, StreamableFile, HttpCode, Param, Query } from '@nestjs/common';
+import { Controller, Post, UsePipes, ValidationPipe, Body, Get, Header, StreamableFile, HttpCode, Param, Query, UseGuards } from '@nestjs/common';
 import { OtmetkaService } from './otmetka.service';
 import { dostypDto } from 'src/dostyp/dostyp.dto';
 import { OtmetkaDto } from './otmetka.dto';
 import { poiskOtmetkiDto } from './poiskOtmetki.dto';
 import { utils, write } from 'xlsx';
+import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
 
 @Controller('otmetka')
@@ -16,13 +17,14 @@ export class OtmetkaController {
     return this.otmetkaService.add(dto)
   }
 
+  @UseGuards(JwtGuard)
   @Post('poisk')
   @UsePipes(new ValidationPipe())
   async all(@Body() dto: poiskOtmetkiDto) {
     return this.otmetkaService.all(dto)
   }
 
-
+  @UseGuards(JwtGuard)
   @Get('download')
   @HttpCode(200)
   @Header('Content-Disposition', 'attachment; filename="SheetJSNest.xlsx"')

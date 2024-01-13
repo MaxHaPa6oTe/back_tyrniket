@@ -17,6 +17,7 @@ export class AuthService {
     const user = await this.validateUser(dto);
     const payload = {
       username: user.name,
+      role: user.role,
       sub: {
         name: user.name,
       },
@@ -39,7 +40,7 @@ export class AuthService {
   }
 
   async validateUser(dto: LoginDto) {
-    const user = await this.userService.findByEmail(dto.username);
+    const user = await this.userService.findByName(dto.username);
 
     if (user && (await compare(dto.password, user.password))) {
       const { password, ...result } = user;
@@ -51,6 +52,7 @@ export class AuthService {
   async refreshToken(user: any) {
     const payload = {
       username: user.username,
+      role: user.role,
       sub: user.sub,
     };
 
