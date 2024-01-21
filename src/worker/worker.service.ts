@@ -32,7 +32,13 @@ export class WorkerService {
                 createdAt: d
             }
         })
-        return worker        
+        for(let i = 0; i < body.dostyp.length; i++) {
+            await this.prisma.dostyp.create({data:{
+                workerId: worker.id,
+                zdanieId: Number(body.dostyp[i])
+            }})
+        }
+        return worker
     }
 
     async del(idRaba:number) {

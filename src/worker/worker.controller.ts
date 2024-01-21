@@ -13,7 +13,7 @@ import { JwtGuard } from 'src/auth/guards/jwt.guard';
 export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
-  @UseGuards(AdminJwtGuard)
+  // @UseGuards(AdminJwtGuard)
   @UsePipes(new ValidationPipe())
   @HttpCode(201)
   @Post('create')

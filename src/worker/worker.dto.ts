@@ -1,4 +1,4 @@
-import { IsString, IsNumber } from "class-validator";
+import { IsString } from "class-validator";
 
 export class workerDto {
     @IsString()
@@ -9,10 +9,10 @@ export class workerDto {
 
     @IsString()
     phone: string
-    // @IsNumber()
-    // phone: number
+
     @IsString()
     karta: string
-    // @IsNumber()
-    // karta: number
+    
+    @IsString()
+    dostyp: string
 }
