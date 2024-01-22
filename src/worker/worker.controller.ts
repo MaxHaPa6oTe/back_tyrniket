@@ -13,14 +13,14 @@ import { JwtGuard } from 'src/auth/guards/jwt.guard';
 export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
-  // @UseGuards(AdminJwtGuard)
+  @UseGuards(AdminJwtGuard)
   @UsePipes(new ValidationPipe())
   @HttpCode(201)
   @Post('create')
   @UseInterceptors(FileInterceptor('photo'))
   async createWorker(
     @Body() body: workerDto,
-    @UploadedFile() photo:File
+    @UploadedFile() photo:any
   ) {
     return this.workerService.create(body, photo)
   }

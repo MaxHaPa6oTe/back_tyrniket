@@ -7,7 +7,7 @@ import { AdminJwtGuard } from 'src/auth/guards/admin.guard';
 export class DostypController {
   constructor(private readonly dostypService: DostypService) {}
 
-  // @UseGuards(AdminJwtGuard)
+  @UseGuards(AdminJwtGuard)
   @Post('dat')
   @UsePipes(new ValidationPipe())
   @HttpCode(201)

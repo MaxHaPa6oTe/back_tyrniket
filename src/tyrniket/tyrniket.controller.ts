@@ -9,28 +9,28 @@ import { AdminJwtGuard } from 'src/auth/guards/admin.guard';
 export class TyrniketController {
   constructor(private readonly tyrniketService: TyrniketService) {}
 
-  // @UseGuards(AdminJwtGuard)
+  @UseGuards(AdminJwtGuard)
   @Post()
   @HttpCode(201)
   async add(@Body() info: tyrniketDto) {
     return this.tyrniketService.add(info)
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Get()
   @HttpCode(200)
   async all() {
     return this.tyrniketService.all()
   }
 
-  // @UseGuards(AdminJwtGuard)
+  @UseGuards(AdminJwtGuard)
   @Post('zdanie')
   @HttpCode(201)
   async addZdanie(@Body() dto: zdanieDto) {
     return this.tyrniketService.addZdanie(dto)
   }
 
-  // @UseGuards(JwtGuard)
+  @UseGuards(JwtGuard)
   @Get('zdanie')
   @HttpCode(200)
   async Zdanie() {
