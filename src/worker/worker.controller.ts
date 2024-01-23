@@ -14,6 +14,12 @@ export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
   @UseGuards(AdminJwtGuard)
+  @Get('addOldWorkers')
+  async addOldWorkers() {
+    return this.workerService.addOldWorkers()
+  }
+
+  @UseGuards(AdminJwtGuard)
   @UsePipes(new ValidationPipe())
   @HttpCode(201)
   @Post('create')

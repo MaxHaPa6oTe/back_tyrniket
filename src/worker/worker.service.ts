@@ -117,4 +117,8 @@ export class WorkerService {
         })
         return {workers,count}
     }
+
+    async addOldWorkers() {
+        return
+    }
 }
