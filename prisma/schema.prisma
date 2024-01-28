@@ -22,12 +22,12 @@ model User {
 model Worker {
   id         Int      @id @default(autoincrement())
 
-  createdAt  DateTime
-  otdel      String
-  fio        String
-  phone      String      @unique
-  karta      String      @unique 
-  photo      String   @default("default-avatar.png")
+  fio String
+  post String
+  photo String @default("default-avatar.png")
+  birthday String
+  uid String @unique
+  createdAt DateTime
 
   dostyp     Dostyp[]
   otmetka    Otmetka[]

@@ -1,8 +1,9 @@
-import { IsString } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 export class dostypDto {
     @IsString()
-    karta: string
+    worker: string
 
-    zdanie: number[]
+    @IsNumber()
+    zdanie: number
 }

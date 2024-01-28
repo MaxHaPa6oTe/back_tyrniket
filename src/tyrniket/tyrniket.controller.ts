@@ -23,7 +23,7 @@ export class TyrniketController {
     return this.tyrniketService.all()
   }
 
-  @UseGuards(AdminJwtGuard)
+  // @UseGuards(AdminJwtGuard)
   @Post('zdanie')
   @HttpCode(201)
   async addZdanie(@Body() dto: zdanieDto) {

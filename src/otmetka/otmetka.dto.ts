@@ -4,6 +4,6 @@ export class OtmetkaDto {
     @IsNumber()
     tyrniket: number
 
-    @IsNumber()
-    worker: number
+    @IsString()
+    worker: string
 }

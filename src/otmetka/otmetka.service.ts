@@ -16,7 +16,7 @@ export class OtmetkaService {
         d.toISOString()
         const worker = await this.prisma.worker.findUnique({
             where: {
-                karta: String(dto.worker)
+                uid: dto.worker
             }
         })
         if (!worker) {

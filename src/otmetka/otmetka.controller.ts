@@ -12,19 +12,21 @@ export class OtmetkaController {
   constructor(private readonly otmetkaService: OtmetkaService) {}
 
   @Post('add')
+  @HttpCode(201)
   @UsePipes(new ValidationPipe())
   async proverka(@Body() dto: OtmetkaDto) {
     return this.otmetkaService.add(dto)
   }
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Post('poisk')
+  @HttpCode(200)
   @UsePipes(new ValidationPipe())
   async all(@Body() dto: poiskOtmetkiDto) {
     return this.otmetkaService.all(dto)
   }
 
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Get('download')
   @HttpCode(200)
   @Header('Content-Disposition', 'attachment; filename="SheetJSNest.xlsx"')

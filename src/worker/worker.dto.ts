@@ -2,16 +2,16 @@ import { IsString } from "class-validator";
 
 export class workerDto {
     @IsString()
-    otdel: string
-
-    @IsString()
     fio: string
 
     @IsString()
-    phone: string
+    post: string
 
     @IsString()
-    karta: string
+    birthday: string
+    
+    @IsString()
+    uid: string;
     
     @IsString()
     dostyp: string

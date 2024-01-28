@@ -7,54 +7,53 @@ import { PoiskDto } from './posik.dto';
 import { AdminJwtGuard } from 'src/auth/guards/admin.guard';
 import { JwtGuard } from 'src/auth/guards/jwt.guard';
 
-
-
 @Controller('worker')
 export class WorkerController {
   constructor(private readonly workerService: WorkerService) {}
 
-  @UseGuards(AdminJwtGuard)
-  @Get('addOldWorkers')
-  async addOldWorkers() {
-    return this.workerService.addOldWorkers()
-  }
+  @Get('oldAddWorkers')
+  Lol() {
+    return this.workerService.addOld()
+}  
 
-  @UseGuards(AdminJwtGuard)
+  // @UseGuards(AdminJwtGuard)
   @UsePipes(new ValidationPipe())
   @HttpCode(201)
   @Post('create')
   @UseInterceptors(FileInterceptor('photo'))
   async createWorker(
     @Body() body: workerDto,
-    @UploadedFile() photo:any
+    @UploadedFile() photo: Express.Multer.File,
   ) {
     return this.workerService.create(body, photo)
   }
 
-  @UseGuards(AdminJwtGuard)
+  // @UseGuards(AdminJwtGuard)
   @Delete(':id')
+  @HttpCode(200)
   async del(@Param('id') id: number) {
     return this.workerService.del(id)
   }
 
-  @UseGuards(AdminJwtGuard)
+  // @UseGuards(AdminJwtGuard)
   @Put(':id')
+  @HttpCode(200)
   @UseInterceptors(FileInterceptor('photo'))
-  async update(@Body() body:workerDto,
-  @UploadedFile() photo:any,
-  @Param('id') id:number
+  async update(@Body() body: workerDto,
+  @UploadedFile() photo: Express.Multer.File,
+  @Param('id') id: number
   ) {
     return this.workerService.update(id ,body, photo)
   }
   
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Post('all')
   @HttpCode(200)
   async getAllWorkers(@Body() body:PoiskDto) {
     return this.workerService.poiskAll(body)
   }
   
-  @UseGuards(JwtGuard)
+  // @UseGuards(JwtGuard)
   @Get(':id')
   @HttpCode(200)
   async obzorRaba(@Param('id') id:number) {
